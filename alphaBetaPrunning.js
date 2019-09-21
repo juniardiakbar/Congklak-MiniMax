@@ -52,11 +52,14 @@ async function minimax(state, depthLimit = 8) {
                 2,
                 holeNumber
             );
+            console.log(nextState);
             let currentValue = null;
             if (nextTurn === 1) {
                 currentValue = await getMin(nextState, depthLimit - 1);
+                console.log('min', currentValue);
             } else {
                 currentValue = await getMax(nextState, depthLimit - 1);
+                console.log('max', currentValue);
             }
             console.log(`Actions: ${holeNumber}, Score: ${currentValue}`);
             if (currentValue > maximum) {
@@ -115,7 +118,7 @@ async function getMax(
     return utility(state, 2);
     }
 
-  let maxValue = MINUS_INFINITY;
+  let maxValue = null;
   for (let holeNumber of PLAYER2_HOLE_NUMBERS) {
     if (state[holeNumber] > 0) {
       let { nextState, nextTurn } = await getCongklakNextState(
@@ -123,7 +126,7 @@ async function getMax(
         2,
         holeNumber
       );
-      let currentValue = null;
+      let currentValue = PLUS_INFINITY;
       if (nextTurn === 1) {
         currentValue = await getMin(nextState, depthLimit - 1, alpha, beta);
       } else {

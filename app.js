@@ -25,9 +25,15 @@ const {
   getCongklakNextState
 } = coreLogic;
 
-console.log(
-  getCongklakNextState(generateCongklakInitialState, 2, 3)
-);
+const {
+  getChoice
+} = alphaBetaPrunning;
+
+getChoice([8,8,8,8,8,8,1,9,0,8,8,8,8,0,8,0], 2)
+  .then(value => {
+    console.log(value);
+  });
+  // getChoice(generateCongklakInitialState, 4)
 
 // app.listen(3000, () => {
 //   console.log('%s App is running at http://localhost:%d in %s mode', 3000, 'development');

@@ -1,5 +1,10 @@
-exports.PLAYER1_HOME_NUMBER = 7;
-exports.PLAYER2_HOME_NUMBER = 15;
+const PLAYER1_HOME_NUMBER = 7;
+const PLAYER2_HOME_NUMBER = 15;
+const PLAYER1_HOLE_NUMBERS = [0, 1, 2, 3, 4, 5, 6];
+const PLAYER2_HOLE_NUMBERS = [8, 9, 10, 11, 12, 13, 14];
+
+exports.PLAYER1_HOME_NUMBER;
+exports.PLAYER2_HOME_NUMBER;
 exports.PLAYER1_HOLE_NUMBERS = [0, 1, 2, 3, 4, 5, 6];
 exports.PLAYER2_HOLE_NUMBERS = [8, 9, 10, 11, 12, 13, 14];
 
@@ -16,7 +21,11 @@ exports.MAP_DIFFICULTY_NUMBER_TO_DIFFICULTY = {
     "4": "HARD",
     "8": "BRUTAL"
 };
-  
+
+const OPPOSITE_HOLE_NUMBER = function(hole) {
+    return Math.abs((14-hole));
+};
+
 exports.OPPOSITE_HOLE_NUMBER = function(hole) {
     return Math.abs((14-hole));
 };
@@ -52,8 +61,8 @@ exports.getPlayer2PlayableHoles = function(congklakState) {
 }
 
 exports.getOppositeHoleNumber = function(holeNumber) {
-    return (holeNumber === PLAYER1_SCORE_HOLE_NUMBER ||
-    holeNumber === PLAYER2_SCORE_HOLE_NUMBER
+    return (holeNumber === PLAYER1_HOME_NUMBER ||
+    holeNumber === PLAYER2_HOME_NUMBER
       ? -1
       : OPPOSITE_HOLE_NUMBER(holeNumber));
 }
@@ -75,19 +84,20 @@ exports.getEnemyScoreHoleNumber = function(currentTurn) {
 }
 
 exports.isScoreHole = function(holeNumber) {
-    return 
-        (holeNumber === PLAYER1_SCORE_HOLE_NUMBER ||
-        holeNumber === PLAYER2_SCORE_HOLE_NUMBER);
+    return(
+        (holeNumber === PLAYER1_HOME_NUMBER ||
+        holeNumber === PLAYER2_HOME_NUMBER)
+    )
 }
 
 exports.getEndOfGameMessage = function(congklakState) {
     if (
-        congklakState[PLAYER1_SCORE_HOLE_NUMBER] >
-        congklakState[PLAYER2_SCORE_HOLE_NUMBER]
+        congklakState[PLAYER1_HOME_NUMBER] >
+        congklakState[PLAYER2_HOME_NUMBER]
     ) {
         return "Player wins!";
     } else if (
-        congklakState[PLAYER1_SCORE_HOLE_NUMBER] ===
+        congklakState[PLAYER1_HOME_NUMBER] ===
         congklakState[PLAYER2_PLAYABLE_HOLE_NUMBERS]
     ){
         return "Draw";
@@ -112,8 +122,13 @@ const isPlayer2OutOfMove = function(congklakState) {
     return getPlayer2PlayableHoles(congklakState).filter(val => val > 0).length === 0;
 }
 
-exports.isPlayer1OutOfMove;
-exports.isPlayer2OutOfMove;
+exports.isPlayer1OutOfMove = function(congklakState) {
+    return getPlayer1PlayableHoles(congklakState).filter(val => val > 0).length === 0;
+}
+
+exports.isPlayer2OutOfMove = function(congklakState) {
+    return getPlayer2PlayableHoles(congklakState).filter(val => val > 0).length === 0;
+};
 
 exports.isGameOver = function(congklakState) {
     return (isPlayer1OutOfMove(congklakState) && isPlayer2OutOfMove(congklakState));
