@@ -21,9 +21,7 @@ exports.OPPOSITE_HOLE_NUMBER = function(hole) {
     return Math.abs((14-hole));
 };
 
-exports.generateCongklakInitialState = function() {
-    return [7, 7, 7, 7, 7, 7, 7, 0, 7, 7, 7, 7, 7, 7, 7, 0];
-}
+exports.generateCongklakInitialState = [7, 7, 7, 7, 7, 7, 7, 0, 7, 7, 7, 7, 7, 7, 7, 0];
 
 exports.getNextHoleNumber = function(holeNumber) {
     return (holeNumber + 1) % 16;
@@ -37,7 +35,7 @@ exports.isInOwnArea = function(holeNumber, turn) {
     } else return false;
 }
 
-exports.getPlayer1PlayableHoles = function(congklakState) {
+const getPlayer1PlayableHoles = function(congklakState) {
     return congklakState.filter((_, i) => i >= 0 && i < 7);
 }
   
@@ -45,7 +43,13 @@ const getPlayer2PlayableHoles = function(congklakState) {
     return congklakState.filter((_, i) => i >= 8 && i < 15);
 }
 
-exports.getPlayer2PlayableHoles;
+exports.getPlayer1PlayableHoles = function(congklakState) {
+    return congklakState.filter((_, i) => i >= 0 && i < 7);
+}
+  
+exports.getPlayer2PlayableHoles = function(congklakState) {
+    return congklakState.filter((_, i) => i >= 8 && i < 15);
+}
 
 exports.getOppositeHoleNumber = function(holeNumber) {
     return (holeNumber === PLAYER1_SCORE_HOLE_NUMBER ||
@@ -58,7 +62,9 @@ const getNextTurn = function(currentTurn) {
     return currentTurn % 2 + 1;
 }
 
-exports.getNextTurn;
+exports.getNextTurn = function(currentTurn) {
+    return currentTurn % 2 + 1;
+};
 
 exports.getOwnScoreHoleNumber = function(currentTurn)  { 
     return currentTurn * 8 - 1;
@@ -98,14 +104,17 @@ exports.hashCongklakState = function(depthLimit, congklakState) {
     return str;
 }
 
-exports.isPlayer1OutOfMove = function(congklakState) {
+const isPlayer1OutOfMove = function(congklakState) {
     return getPlayer1PlayableHoles(congklakState).filter(val => val > 0).length === 0;
 }
 
-exports.isPlayer2OutOfMove = function(congklakState) {
+const isPlayer2OutOfMove = function(congklakState) {
     return getPlayer2PlayableHoles(congklakState).filter(val => val > 0).length === 0;
 }
 
+exports.isPlayer1OutOfMove;
+exports.isPlayer2OutOfMove;
+
 exports.isGameOver = function(congklakState) {
-    isPlayer1OutOfMove(congklakState) && isPlayer2OutOfMove(congklakState);
+    return (isPlayer1OutOfMove(congklakState) && isPlayer2OutOfMove(congklakState));
 }

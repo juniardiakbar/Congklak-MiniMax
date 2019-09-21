@@ -5,11 +5,29 @@ const coreLogic = require("./coreLogic");
 const alphaBetaPrunning = require("./alphaBetaPrunning");
 
 const {
-  getChoice
-} = alphaBetaPrunning;
+  isGameOver,
+  isPlayer1OutOfMove,
+  isPlayer2OutOfMove,
+  getPlayer1PlayableHoles,
+  getPlayer2PlayableHoles,
+  getOwnScoreHoleNumber,
+  getNextTurn,
+  PLAYER1_SCORE_HOLE_NUMBER,
+  PLAYER2_SCORE_HOLE_NUMBER,
+  getEnemyScoreHoleNumber,
+  isScoreHole,
+  generateCongklakInitialState,
+  getNextHoleNumber,
+  isInOwnArea,
+} = congklakUtils;
 
-let state = [0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 1, 50];
-console.log(getChoice(state, 2));
+const {
+  getCongklakNextState
+} = coreLogic;
+
+console.log(
+  getCongklakNextState(generateCongklakInitialState, 2, 3)
+);
 
 // app.listen(3000, () => {
 //   console.log('%s App is running at http://localhost:%d in %s mode', 3000, 'development');
