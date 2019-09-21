@@ -4,8 +4,8 @@ const {
     isPlayer2OutOfMove,
     isPlayer1OutOfMove,
     PLAYER1_PLAYABLE_HOLE_NUMBERS,
-    hashCongklakState
 } = require("./congklakUtils");
+
 const { getCongklakNextState } = require ("./coreLogic");
 const { DIFFICULTY } = require ("./congklakDifficulty");
 

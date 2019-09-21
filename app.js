@@ -1,9 +1,8 @@
 const express = require('express');
 const app = express();
-const {
-  PLAYER1_HOME_NUMBER,
-  PLAYER2_HOME_NUMBER
-} = require("./congklakUtils");
+const congklakUtils = require("./congklakUtils");
+const coreLogic = require("./coreLogic");
+const alphaBetaPrunning = require("./alphaBetaPrunning");
 
 console.log(PLAYER1_HOME_NUMBER);
 

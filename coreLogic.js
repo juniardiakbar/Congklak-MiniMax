@@ -7,7 +7,7 @@ const {
     PLAYER1_HOME_NUMBER,
     PLAYER2_HOME_NUMBER,
     getOppositeHoleNumber
-} = require("./congklakLogicUtils");
+} = require("./congklakUtils");
 
 exports.getCongklakNextState = async function(currentState, turn, nowHoleNumber) {
     const nextState = [...currentState];
