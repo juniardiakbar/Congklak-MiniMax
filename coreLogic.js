@@ -7,7 +7,7 @@ const {
     PLAYER1_HOME_NUMBER,
     PLAYER2_HOME_NUMBER,
     getOppositeHoleNumber
-} = require("./congklakLogicUtils");
+} = require("./congklakUtils");
 
 exports.getCongklakNextState = async function(currentState, turn, nowHoleNumber) {
     const nextState = [...currentState];
@@ -113,10 +113,8 @@ exports.simulateCongklakRotation = async function ({
                 );
             }
         }
-
         currentHoleNumber = getNextHoleNumber(currentHoleNumber);
     }
-
     setDisplayNumberOfSeedsToBeDistributedFn(-1);
     setFocusedCongklakHoleNumberFn(-1);
     await waitFor(delay);
