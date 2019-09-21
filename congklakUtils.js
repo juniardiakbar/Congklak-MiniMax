@@ -41,9 +41,11 @@ exports.getPlayer1PlayableHoles = function(congklakState) {
     return congklakState.filter((_, i) => i >= 0 && i < 7);
 }
   
-exports.getPlayer2PlayableHoles = function(congklakState) {
+const getPlayer2PlayableHoles = function(congklakState) {
     return congklakState.filter((_, i) => i >= 8 && i < 15);
 }
+
+exports.getPlayer2PlayableHoles;
 
 exports.getOppositeHoleNumber = function(holeNumber) {
     return (holeNumber === PLAYER1_SCORE_HOLE_NUMBER ||
@@ -52,12 +54,18 @@ exports.getOppositeHoleNumber = function(holeNumber) {
       : OPPOSITE_HOLE_NUMBER(holeNumber));
 }
 
-exports.getNextTurn = function(currentTurn) {
+const getNextTurn = function(currentTurn) {
     return currentTurn % 2 + 1;
 }
 
+exports.getNextTurn;
+
 exports.getOwnScoreHoleNumber = function(currentTurn)  { 
     return currentTurn * 8 - 1;
+}
+
+exports.getEnemyScoreHoleNumber = function(currentTurn) {
+    return getNextTurn(currentTurn) * 8 - 1;
 }
 
 exports.isScoreHole = function(holeNumber) {
