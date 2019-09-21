@@ -44,7 +44,12 @@ exports.getCongklakNextState = async function(currentState, turn, nowHoleNumber)
     return { nextState, nextTurn: turn };
 }
 
-const { waitFor } = require("../utils");
+const waitFor = function(milliseconds) {
+    return new Promise((resolve, reject) => {
+      setTimeout(resolve, milliseconds);
+    });
+  };
+  
 
 exports.simulateCongklakRotation = async function ({
     congklakState,
