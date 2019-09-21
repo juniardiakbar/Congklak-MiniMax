@@ -113,10 +113,8 @@ exports.simulateCongklakRotation = async function ({
                 );
             }
         }
-
         currentHoleNumber = getNextHoleNumber(currentHoleNumber);
     }
-
     setDisplayNumberOfSeedsToBeDistributedFn(-1);
     setFocusedCongklakHoleNumberFn(-1);
     await waitFor(delay);

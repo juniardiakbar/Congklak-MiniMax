@@ -1,13 +1,14 @@
 const {
-    PLAYER2_PLAYABLE_HOLE_NUMBERS,
+    PLAYER2_HOLE_NUMBERS,
     getOwnScoreHoleNumber,
     isPlayer2OutOfMove,
     isPlayer1OutOfMove,
-    PLAYER1_PLAYABLE_HOLE_NUMBERS,
+    PLAYER1_HOLE_NUMBERS,
+    hashCongklakState,
+    DIFFICULTY
 } = require("./congklakUtils");
 
 const { getCongklakNextState } = require ("./coreLogic");
-const { DIFFICULTY } = require ("./congklakDifficulty");
 
 const MINUS_INFINITY = -10000000;
 const PLUS_INFINITY = +10000000;
@@ -21,7 +22,7 @@ exports.getChoice = async function(congklakState, difficulty) {
 }
 
 function getRandomChoice(congklakState) {
-    const playableHoles = PLAYER2_PLAYABLE_HOLE_NUMBERS.filter(
+    const playableHoles = PLAYER2_HOLE_NUMBERS.filter(
         val => congklakState[val] > 0
     );
     return playableHoles[Math.floor(Math.random() * playableHoles.length)];
@@ -39,13 +40,12 @@ function utility(congklakState, turn) {
     return congklakState[getOwnScoreHoleNumber(turn)];
 }
 
-
 async function minimax(state, depthLimit = 8) {
     let maximum = MINUS_INFINITY;
     let choice = null;
     console.log("Considering Actions: ");
 
-    for (let holeNumber of PLAYER2_PLAYABLE_HOLE_NUMBERS) {
+    for (let holeNumber of PLAYER2_HOLE_NUMBERS) {
         if (state[holeNumber] > 0) {
             let { nextState, nextTurn } = await getCongklakNextState(
                 state,
@@ -79,7 +79,7 @@ async function getMin(
     }
 
     let minValue = PLUS_INFINITY;
-    for (let holeNumber of PLAYER1_PLAYABLE_HOLE_NUMBERS) {
+    for (let holeNumber of PLAYER1_HOLE_NUMBERS) {
         if (state[holeNumber] > 0) {
         let { nextState, nextTurn } = await getCongklakNextState(
             state,
@@ -116,7 +116,7 @@ async function getMax(
     }
 
   let maxValue = MINUS_INFINITY;
-  for (let holeNumber of PLAYER2_PLAYABLE_HOLE_NUMBERS) {
+  for (let holeNumber of PLAYER2_HOLE_NUMBERS) {
     if (state[holeNumber] > 0) {
       let { nextState, nextTurn } = await getCongklakNextState(
         state,
