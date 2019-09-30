@@ -34,15 +34,26 @@ function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes) {
           nextState[getOwnScoreHoleNumber(turn)] += take;
         }
       }
+      holes.forEach(hole => {
+        hole.classList.remove('active');
+      })
+      holes[currentHoleNumber].classList.add('active');
+
       currentHoleNumber = getNextHoleNumber(currentHoleNumber);
 
       nextState.forEach((state, i) => {
         holes[i].innerHTML = state;
       });
 
+
       simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes)
     }, 500);
   } else {
+    setTimeout(() => {
+      holes.forEach(hole => {
+        hole.classList.remove('active');
+      })
+    }, 500);
     return;
   }
 }
