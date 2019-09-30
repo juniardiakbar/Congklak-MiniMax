@@ -38,6 +38,11 @@ for (let i=0; i<7; i++) {
     for (let i=0; i<16; i++) {
       congklakState[i] = nextState[i];
     }
+    
+    if (playing == 2) {
+      await aiPlaying(playing, congklakState, holes, seedsLeft)
+    }
+
   });
 
 }
@@ -65,7 +70,9 @@ async function botAiTurn(
   }
 }
 
-buttonPlay.addEventListener('click', async function() {
+
+
+async function aiPlaying(playing, congklakState, holes, seedsLeft) {
   if (playing == 2) {
     var holeNumber = await getChoice(congklakState, 4);
     await simulateCongklakMove(congklakState, 2, holeNumber, holes, seedsLeft);
@@ -76,6 +83,8 @@ buttonPlay.addEventListener('click', async function() {
     for (let i=0; i<16; i++) {
       congklakState[i] = nextState[i];
     }
-    holeNumber = await getChoice(congklakState, 4);
+    aiPlaying(playing, congklakState, holes, seedsLeft);
+  } else {
+    return { congklakState, playing }
   }
-});
+}
