@@ -1,0 +1,11 @@
+.user-hole, .ai-hole, .user-home-hole, .ai-home-hole {
+  height: 40px;
+  width: 40px;
+  font-size: 14px;
+  padding: 6px;
+  display: inline-block;
+}
+
+.user-home-wrapper, .player-hole-wrapper, .ai-home-wrapper {
+  display: inline-block;
+}

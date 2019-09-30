@@ -1,26 +1,18 @@
-const {
+import {
   PLAYER2_PLAYABLE_HOLE_NUMBERS,
   getOwnScoreHoleNumber,
   isPlayer2OutOfMove,
   isPlayer1OutOfMove,
   PLAYER1_PLAYABLE_HOLE_NUMBERS,
   hashCongklakState
-} = require("./congklakUtils");
-const { getCongklakNextState } = require("./coreLogic");
+} from "./congklakUtils.js";
+import { getCongklakNextState } from "./coreLogic.js";
 
 const MINUS_INFINITY = -10000000;
 const PLUS_INFINITY = +10000000;
 
-const DIFFICULTY = {
-  EASY: "null",
-  MEDIUM: "2",
-  HARD: "4",
-  BRUTAL: "8"
-};
-
-exports.getChoice = async (congklakState, difficulty) => {
-  console.log('getChoice', difficulty);
-  if (difficulty === DIFFICULTY.EASY) {
+export async function getChoice(congklakState, difficulty) {
+  if (difficulty === 1) {
     return getRandomChoice(congklakState);
   } else {
     return await minimax(congklakState, Number.parseInt(difficulty));
@@ -60,7 +52,6 @@ async function minimax(state, depthLimit = 8) {
         2,
         holeNumber
       );
-      console.log(nextState, 'nextState', holeNumber);
       let currentValue = null;
       if (nextTurn === 1) {
         currentValue = await getMin(nextState, depthLimit - 1);
