@@ -31,34 +31,36 @@ for (let i=0; i<7; i++) {
   userHole[i].addEventListener('click', async function() {
     await simulateCongklakMove(congklakState, 1, i, holes, seedsLeft);
     
-    const result = await getCongklakNextState(congklakState, 1, i, holes);
-    
+    const result = await getCongklakNextState(congklakState, 1, i);
     const nextState = result.nextState;
     playing = result.nextTurn;
     
     for (let i=0; i<16; i++) {
       congklakState[i] = nextState[i];
     }
+    
+    if (playing == 2) {
+      await aiPlaying(playing, congklakState, holes, seedsLeft)
+    }
 
   });
 }
 
-buttonPlay.addEventListener('click', async function() {
-  if (playing == 2) {
-    while (playing == 2) {
-      const holeNumber = await getChoice(congklakState, 4);
 
-      const result = await getCongklakNextState(congklakState, 2, holeNumber);
-      const nextState = result.nextState;
-      playing = result.nextTurn;
-      
-      for (let i=0; i<16; i++) {
-        congklakState[i] = nextState[i];
-      }
-      
-      nextState.forEach((state, i) => {
-        holes[i].innerHTML = state;
-      });
+
+async function aiPlaying(playing, congklakState, holes, seedsLeft) {
+  if (playing == 2) {
+    var holeNumber = await getChoice(congklakState, 4);
+    await simulateCongklakMove(congklakState, 2, holeNumber, holes, seedsLeft);
+    const result = await getCongklakNextState(congklakState, 2, holeNumber);
+    const nextState = result.nextState;
+    playing = result.nextTurn;
+    
+    for (let i=0; i<16; i++) {
+      congklakState[i] = nextState[i];
     }
+    aiPlaying(playing, congklakState, holes, seedsLeft);
+  } else {
+    return { congklakState, playing }
   }
-});
+}

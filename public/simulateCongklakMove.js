@@ -9,7 +9,7 @@ import {
   getOppositeHoleNumber
 } from "./congklakUtils.js";
 
-function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes) {
+function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft) {
   if (seeds > 0) {
     setTimeout(function() {
       if (currentHoleNumber === getEnemyScoreHoleNumber(turn)) {
@@ -45,16 +45,17 @@ function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes) {
         holes[i].innerHTML = state;
       });
 
+      seedsLeft.innerHTML = seeds;
 
-      simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes)
-    }, 500);
+      simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft)
+    }, 250);
   } else {
     setTimeout(() => {
       holes.forEach(hole => {
         hole.classList.remove('active');
       })
     }, 500);
-    return;
+    return true;
   }
 }
 
@@ -76,8 +77,8 @@ export async function simulateCongklakMove(
     nextState.forEach((state, i) => {
       holes[i].innerHTML = state;
     });
-  }, 500);
+  }, 250);
 
   
-  simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes);
+  return simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft);
 }
