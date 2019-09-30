@@ -29,8 +29,9 @@ function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes) {
           nextState[currentHoleNumber] = 0;
         } else if (isInOwnArea(currentHoleNumber, turn)) {
           const opposite = getOppositeHoleNumber(currentHoleNumber);
-          const take = nextState[opposite];
+          const take = nextState[opposite] + nextState[currentHoleNumber];
           nextState[opposite] = 0;
+          nextState[currentHoleNumber] = 0;
           nextState[getOwnScoreHoleNumber(turn)] += take;
         }
       }
