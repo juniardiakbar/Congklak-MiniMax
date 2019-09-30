@@ -39,41 +39,14 @@ for (let i=0; i<7; i++) {
       congklakState[i] = nextState[i];
     }
     
-    if (playing == 2) {
-      await aiPlaying(playing, congklakState, holes, seedsLeft)
-    }
+    // if (playing == 2) {
+    //   await aiPlaying(playing, congklakState, holes, seedsLeft)
+    // }
 
   });
-
 }
 
-async function botAiTurn(
-  playing,
-  congklakState,
-  level,
-  holeNumber,
-  holes,
-  seedsLeft,
-){
-  if (playing == 2){
-    var holeNumber = await getChoice(congklakState, level);
-    await simulateCongklakMove(congklakState, 2, holeNumber, holes, seedsLeft);
-    const result = await getCongklakNextState(congklakState, 2, holeNumber);
-    const nextState = result.nextState;
-    playing = result.nextTurn;
-    
-    for (let i=0; i<16; i++) {
-      congklakState[i] = nextState[i];
-    }
-    holeNumber = await getChoice(congklakState, 4);
-    return botAiTurn(playing, congklakState);
-  }
-}
-
-
-
-async function aiPlaying(playing, congklakState, holes, seedsLeft) {
-  if (playing == 2) {
+buttonPlay.addEventListener('click', async function(){
     var holeNumber = await getChoice(congklakState, 4);
     await simulateCongklakMove(congklakState, 2, holeNumber, holes, seedsLeft);
     const result = await getCongklakNextState(congklakState, 2, holeNumber);
@@ -83,8 +56,46 @@ async function aiPlaying(playing, congklakState, holes, seedsLeft) {
     for (let i=0; i<16; i++) {
       congklakState[i] = nextState[i];
     }
-    aiPlaying(playing, congklakState, holes, seedsLeft);
-  } else {
-    return { congklakState, playing }
-  }
-}
+});
+
+// async function botAiTurn(
+//   playing,
+//   congklakState,
+//   level,
+//   holeNumber,
+//   holes,
+//   seedsLeft,
+// ){
+//   if (playing == 2){
+//     var holeNumber = await getChoice(congklakState, level);
+//     await simulateCongklakMove(congklakState, 2, holeNumber, holes, seedsLeft);
+//     const result = await getCongklakNextState(congklakState, 2, holeNumber);
+//     const nextState = result.nextState;
+//     playing = result.nextTurn;
+    
+//     for (let i=0; i<16; i++) {
+//       congklakState[i] = nextState[i];
+//     }
+//     holeNumber = await getChoice(congklakState, 4);
+//     return botAiTurn(playing, congklakState);
+//   }
+// }
+
+
+
+// async function aiPlaying(playing, congklakState, holes, seedsLeft) {
+//   if (playing == 2) {
+//     var holeNumber = await getChoice(congklakState, 4);
+//     await simulateCongklakMove(congklakState, 2, holeNumber, holes, seedsLeft);
+//     const result = await getCongklakNextState(congklakState, 2, holeNumber);
+//     const nextState = result.nextState;
+//     playing = result.nextTurn;
+    
+//     for (let i=0; i<16; i++) {
+//       congklakState[i] = nextState[i];
+//     }
+//     aiPlaying(playing, congklakState, holes, seedsLeft);
+//   } else {
+//     return { congklakState, playing }
+//   }
+// }
