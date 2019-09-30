@@ -38,8 +38,31 @@ for (let i=0; i<7; i++) {
     for (let i=0; i<16; i++) {
       congklakState[i] = nextState[i];
     }
-
   });
+
+}
+
+async function botAiTurn(
+  playing,
+  congklakState,
+  level,
+  holeNumber,
+  holes,
+  seedsLeft,
+){
+  if (playing == 2){
+    var holeNumber = await getChoice(congklakState, level);
+    await simulateCongklakMove(congklakState, 2, holeNumber, holes, seedsLeft);
+    const result = await getCongklakNextState(congklakState, 2, holeNumber);
+    const nextState = result.nextState;
+    playing = result.nextTurn;
+    
+    for (let i=0; i<16; i++) {
+      congklakState[i] = nextState[i];
+    }
+    holeNumber = await getChoice(congklakState, 4);
+    return botAiTurn(playing, congklakState);
+  }
 }
 
 buttonPlay.addEventListener('click', async function() {
