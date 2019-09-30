@@ -35,6 +35,11 @@ function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seeds
           nextState[getOwnScoreHoleNumber(turn)] += take;
         }
       }
+      holes.forEach(hole => {
+        hole.classList.remove('active');
+      })
+      holes[currentHoleNumber].classList.add('active');
+
       currentHoleNumber = getNextHoleNumber(currentHoleNumber);
 
       nextState.forEach((state, i) => {
@@ -46,6 +51,11 @@ function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seeds
       simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft)
     }, 250);
   } else {
+    setTimeout(() => {
+      holes.forEach(hole => {
+        hole.classList.remove('active');
+      })
+    }, 500);
     return true;
   }
 }

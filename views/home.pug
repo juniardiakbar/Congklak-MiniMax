@@ -1,36 +1,37 @@
 doctype html
 head
   meta(charset='utf-8')
-  title Congklak AI
+  title Congklak.AI
   meta(name='description' content='Congklak AI with Alpha Beta Pruning')
   <link rel="stylesheet" href="/style.css">
-  link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
+  link(href='https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap' rel='stylesheet')
 
 body
-  .text-center
-    h1 Congklak AI
-  .content
-    .ai-home-wrapper
-      .ai-home-hole
-    .player-hole-wrapper
-      .ai-hole-wrapper
-        .ai-hole
-        .ai-hole
-        .ai-hole
-        .ai-hole
-        .ai-hole
-        .ai-hole
-        .ai-hole
-      .user-hole-wrapper
-        .user-hole
-        .user-hole
-        .user-hole
-        .user-hole
-        .user-hole
-        .user-hole
-        .user-hole
-    .user-home-wrapper
-      .user-home-hole
+  .main-container
+    .text-center
+      h1 CONGKLAK.AI
+    .content
+      .ai-home-wrapper
+        .ai-home-hole.hole.score-hole.play
+      .player-hole-wrapper
+        .ai-hole-wrapper
+          .ai-hole.hole.play
+          .ai-hole.hole.play
+          .ai-hole.hole.play
+          .ai-hole.hole.play
+          .ai-hole.hole.play
+          .ai-hole.hole.play
+          .ai-hole.hole.play
+        .user-hole-wrapper
+          .user-hole.hole.play
+          .user-hole.hole.play
+          .user-hole.hole.play
+          .user-hole.hole.play
+          .user-hole.hole.play
+          .user-hole.hole.play
+          .user-hole.hole.play
+      .user-home-wrapper
+        .user-home-hole.hole.score-hole.play
     #seeds-left
     button#play Play
 
