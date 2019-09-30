@@ -8,6 +8,7 @@ var userHomeHole = document.getElementsByClassName('user-home-hole');
 var aiHole = document.getElementsByClassName('ai-hole');
 var aiHomeHole = document.getElementsByClassName('ai-home-hole');
 var buttonPlay =  document.getElementById('play');
+var seedsLeft =  document.getElementById('seeds-left');
 var playing = 1;
 
 const holes = [];
@@ -28,7 +29,7 @@ congklakState.forEach((state, i) => {
 
 for (let i=0; i<7; i++) {
   userHole[i].addEventListener('click', async function() {
-    await simulateCongklakMove(congklakState, 1, i, holes);
+    await simulateCongklakMove(congklakState, 1, i, holes, seedsLeft);
     
     const result = await getCongklakNextState(congklakState, 1, i, holes);
     

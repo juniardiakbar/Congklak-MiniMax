@@ -51,7 +51,8 @@ export async function simulateCongklakMove(
   currentState,
   turn,
   selectedHoleNumber,
-  holes
+  holes,
+  seedsLeft
 ) {
   const nextState = [...currentState];
 
