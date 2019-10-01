@@ -9,8 +9,13 @@ import {
   getOppositeHoleNumber
 } from "./congklakUtils.js";
 
-function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft) {
+async function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles) {
   if (seeds > 0) {
+    if (turn == 1) {
+      playingStatus.innerHTML = "Player is playing";
+    } else {
+      playingStatus.innerHTML = "AI is playing";
+    }
     setTimeout(function() {
       if (currentHoleNumber === getEnemyScoreHoleNumber(turn)) {
         currentHoleNumber = getNextHoleNumber(currentHoleNumber);
@@ -29,7 +34,7 @@ function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seeds
           nextState[currentHoleNumber] = 0;
         } else if (isInOwnArea(currentHoleNumber, turn)) {
           const opposite = getOppositeHoleNumber(currentHoleNumber);
-          const take = nextState[opposite] + nextState[currentHoleNumber] ;
+          const take = nextState[opposite] + nextState[currentHoleNumber];
           nextState[opposite] = 0;
           nextState[currentHoleNumber] = 0;
           nextState[getOwnScoreHoleNumber(turn)] += take;
@@ -48,15 +53,40 @@ function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seeds
 
       seedsLeft.innerHTML = seeds;
 
-      simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft)
-    }, 250);
-  } else {
-    setTimeout(() => {
-      holes.forEach(hole => {
-        hole.classList.remove('active');
-      })
+      simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles)
     }, 500);
-    return true;
+  } else {
+    holes.forEach(hole => {
+      hole.classList.remove('active');
+    });
+
+    setTimeout(async() => {
+      if (currentHoleNumber !== getNextHoleNumber(getOwnScoreHoleNumber(turn))) {
+        turn = getNextTurn(turn);
+        if (turn == 2) {
+          const selectedHoleNumber = botHoles.shift();
+          seeds = nextState[selectedHoleNumber];
+          currentHoleNumber = getNextHoleNumber(selectedHoleNumber);
+          nextState[selectedHoleNumber] = 0;
+          simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles);
+        } else {
+          playingStatus.innerHTML = "Player is playing";
+          return;
+        }
+      } else {
+        if (turn == 2) {
+          const selectedHoleNumber = botHoles.shift();
+          seeds = nextState[selectedHoleNumber];
+          currentHoleNumber = getNextHoleNumber(selectedHoleNumber);
+          nextState[selectedHoleNumber] = 0;
+          simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles);
+        } else {
+          playingStatus.innerHTML = "Player is playing";
+          return;
+        }
+      }
+    }, 1500);
+
   }
 }
 
@@ -65,21 +95,20 @@ export async function simulateCongklakMove(
   turn,
   selectedHoleNumber,
   holes,
-  seedsLeft
+  seedsLeft,
+  playingStatus,
+  botHoles
 ) {
-  const nextState = [...currentState];
 
+  const nextState = [...currentState];
   const seeds = nextState[selectedHoleNumber];
   const currentHoleNumber = getNextHoleNumber(selectedHoleNumber);
-
   nextState[selectedHoleNumber] = 0;
-
   await setTimeout(function(){ 
     nextState.forEach((state, i) => {
       holes[i].innerHTML = state;
     });
   }, 250);
 
-  
-  return simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft);
+  simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles);
 }

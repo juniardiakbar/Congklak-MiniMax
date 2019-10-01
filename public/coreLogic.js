@@ -40,7 +40,11 @@ export async function getCongklakNextState(
         nextState[currentHoleNumber] = 0;
       } else if (isInOwnArea(currentHoleNumber, turn)) {
         const opposite = getOppositeHoleNumber(currentHoleNumber);
+<<<<<<< HEAD
         const take = nextState[opposite] + nextState[currentHoleNumber] ;
+=======
+        const take = nextState[opposite] + nextState[currentHoleNumber];
+>>>>>>> ba0e5fd9d035c1d4b0e0bea397a5c9f35c5119a7
         nextState[opposite] = 0;
         nextState[currentHoleNumber] = 0;
         nextState[getOwnScoreHoleNumber(turn)] += take;
