@@ -18,7 +18,6 @@ var playingStatus = document.getElementById('playing-status');
 var buttonPlayGame = document.getElementById('play-game');
 var playing = 1;
 
-var beginningPage = document.getElementsByClassName('beginning-page');
 var mainPage = document.getElementsByClassName('main-page');
 
 var holes = [];
@@ -56,7 +55,6 @@ buttonPlay.addEventListener('click', function() {
   document.querySelector('.beginning-page').classList.add('hidden');
   mainPage[0].classList.remove('hidden');
   mainPage[0].style.display = 'flex';
-  // beginningPage[0].classList.add('hidden');
 });
 
 buttonPlayGame.addEventListener('click', async function() {

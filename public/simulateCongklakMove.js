@@ -4,18 +4,30 @@ import {
   isInOwnArea,
   getNextTurn,
   getOwnScoreHoleNumber,
-  PLAYER1_SCORE_HOLE_NUMBER,
-  PLAYER2_SCORE_HOLE_NUMBER,
+  PLAYER1_HOME_HOLE_NUMBER,
+  PLAYER2_HOME_HOLE_NUMBER,
   getOppositeHoleNumber
 } from "./congklakUtils.js";
 
-async function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles) {
+async function simulatePlaying(
+  seeds, 
+  selectedHoleNumber,
+  currentHoleNumber,
+  nextState,
+  turn, 
+  holes, 
+  seedsLeft, 
+  playingStatus, 
+  botHoles,
+  hasVisited
+) {
   if (seeds > 0) {
     if (turn == 1) {
       playingStatus.innerHTML = "Player is playing";
     } else {
       playingStatus.innerHTML = "AI is playing";
     }
+
     setTimeout(function() {
       if (currentHoleNumber === getEnemyScoreHoleNumber(turn)) {
         currentHoleNumber = getNextHoleNumber(currentHoleNumber);
@@ -23,16 +35,20 @@ async function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes,
   
       seeds -= 1;
       nextState[currentHoleNumber] += 1;
+
+      if (currentHoleNumber == selectedHoleNumber) {
+        hasVisited = true;
+      }
   
       if (
         seeds === 0 &&
-        currentHoleNumber !== PLAYER1_SCORE_HOLE_NUMBER &&
-        currentHoleNumber !== PLAYER2_SCORE_HOLE_NUMBER
+        currentHoleNumber !== PLAYER1_HOME_HOLE_NUMBER &&
+        currentHoleNumber !== PLAYER2_HOME_HOLE_NUMBER
       ) {
         if (nextState[currentHoleNumber] > 1) {
           seeds += nextState[currentHoleNumber];
           nextState[currentHoleNumber] = 0;
-        } else if (isInOwnArea(currentHoleNumber, turn)) {
+        } else if (isInOwnArea(currentHoleNumber, turn) && hasVisited) {
           const opposite = getOppositeHoleNumber(currentHoleNumber);
           const take = nextState[opposite] + nextState[currentHoleNumber];
           nextState[opposite] = 0;
@@ -53,8 +69,8 @@ async function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes,
 
       seedsLeft.innerHTML = seeds;
 
-      simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles)
-    }, 1000);
+      simulatePlaying(seeds,selectedHoleNumber, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles, hasVisited)
+    }, 50);
   } else {
     holes.forEach(hole => {
       hole.classList.remove('active');
@@ -68,7 +84,7 @@ async function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes,
           seeds = nextState[selectedHoleNumber];
           currentHoleNumber = getNextHoleNumber(selectedHoleNumber);
           nextState[selectedHoleNumber] = 0;
-          simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles);
+          simulatePlaying(seeds, selectedHoleNumber, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles, hasVisited);
         } else {
           playingStatus.innerHTML = "Player is playing";
           return;
@@ -79,7 +95,7 @@ async function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes,
           seeds = nextState[selectedHoleNumber];
           currentHoleNumber = getNextHoleNumber(selectedHoleNumber);
           nextState[selectedHoleNumber] = 0;
-          simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles);
+          simulatePlaying(seeds,selectedHoleNumber, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles, hasVisited);
         } else {
           playingStatus.innerHTML = "Player is playing";
           return;
@@ -104,11 +120,12 @@ export async function simulateCongklakMove(
   const seeds = nextState[selectedHoleNumber];
   const currentHoleNumber = getNextHoleNumber(selectedHoleNumber);
   nextState[selectedHoleNumber] = 0;
+  
   await setTimeout(function(){ 
     nextState.forEach((state, i) => {
       holes[i].innerHTML = state;
     });
   }, 250);
 
-  simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles);
+  simulatePlaying(seeds, selectedHoleNumber, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles, false);
 }
