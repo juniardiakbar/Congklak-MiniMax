@@ -54,7 +54,7 @@ async function simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes,
       seedsLeft.innerHTML = seeds;
 
       simulatePlaying(seeds, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles)
-    }, 500);
+    }, 1000);
   } else {
     holes.forEach(hole => {
       hole.classList.remove('active');

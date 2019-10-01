@@ -11,19 +11,26 @@ import { getCongklakNextState } from "./coreLogic.js";
 const MINUS_INFINITY = -10000000;
 const PLUS_INFINITY = +10000000;
 
-export async function getChoice(congklakState, difficulty) {
+export async function getChoice(congklakState, difficulty, turn=2) {
   if (difficulty === 1) {
-    return getRandomChoice(congklakState);
+    return getRandomChoice(congklakState, turn);
   } else {
     return await minimax(congklakState, Number.parseInt(difficulty));
   }
 }
 
 // Dumb AI: Random pick available move
-function getRandomChoice(congklakState) {
-  const playableHoles = PLAYER2_PLAYABLE_HOLE_NUMBERS.filter(
-    val => congklakState[val] > 0
-  );
+function getRandomChoice(congklakState, turn) {
+  var playableHoles;
+  if (turn == 1) {
+    playableHoles = PLAYER1_PLAYABLE_HOLE_NUMBERS.filter(
+      val => congklakState[val] > 0
+    );  
+  } else {
+    playableHoles = PLAYER2_PLAYABLE_HOLE_NUMBERS.filter(
+      val => congklakState[val] > 0
+    );
+  }
   return playableHoles[Math.floor(Math.random() * playableHoles.length)];
 }
 
