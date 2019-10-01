@@ -56,7 +56,6 @@ buttonPlay.addEventListener('click', function() {
   document.querySelector('.beginning-page').classList.add('hidden');
   mainPage[0].classList.remove('hidden');
   mainPage[0].style.display = 'flex';
-  // beginningPage[0].classList.add('hidden');
 });
 
 buttonPlayGame.addEventListener('click', async function() {

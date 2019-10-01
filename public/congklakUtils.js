@@ -27,7 +27,6 @@ export const isInOwnArea = (holeNumber, turn) =>
 
 export const getNextHoleNumber = holeNumber => (holeNumber + 1) % 16;
 export const generateCongklakInitialState = () => {
-  // return [3, 1, 2, 0, 0, 0, 0, 50, 0, 0, 0, 10, 1, 0, 0, 31];
   return [7, 7, 7, 7, 7, 7, 7, 0, 7, 7, 7, 7, 7, 7, 7, 0];
 };
 
@@ -72,14 +71,6 @@ export function getEndOfGameMessage(congklakState) {
   ) {
     return "Player wins!";
   } else {
-    return "Congklak.AI wins!";
+    return "AI wins!";
   }
-}
-
-export function hashCongklakState(depthLimit, congklakState) {
-  let str = `${depthLimit},`;
-  for (let element of congklakState) {
-    str = str + " " + element;
-  }
-  return str;
 }

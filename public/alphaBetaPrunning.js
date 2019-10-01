@@ -4,7 +4,6 @@ import {
   isPlayer2OutOfMove,
   isPlayer1OutOfMove,
   PLAYER1_PLAYABLE_HOLE_NUMBERS,
-  hashCongklakState
 } from "./congklakUtils.js";
 import { getCongklakNextState } from "./coreLogic.js";
 
@@ -19,7 +18,6 @@ export async function getChoice(congklakState, difficulty, turn=2) {
   }
 }
 
-// Dumb AI: Random pick available move
 function getRandomChoice(congklakState, turn) {
   var playableHoles;
   if (turn == 1) {
@@ -46,7 +44,6 @@ function utility(congklakState, turn) {
   return congklakState[getOwnScoreHoleNumber(turn)];
 }
 
-// Return the most optimum choice between hole number 8 - 14
 async function minimax(state, depthLimit = 8) {
   let maximum = MINUS_INFINITY;
   let choice = null;
