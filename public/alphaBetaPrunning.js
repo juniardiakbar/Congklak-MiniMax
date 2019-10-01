@@ -1,14 +1,11 @@
 import {
+  getCongklakNextState,
   getOwnScoreHoleNumber,
   isPlayer1OutOfMove,
   isPlayer2OutOfMove,
   PLAYER1_HOLE_NUMBERS,
   PLAYER2_HOLE_NUMBERS,
 } from "./congklakUtils.js";
-
-import { 
-  getCongklakNextState 
-} from "./coreLogic.js";
 
 const MINUS_INFINITY = -1E8;
 const PLUS_INFINITY = 1E8;
@@ -49,7 +46,7 @@ function utility(congklakState, turn) {
 
 async function minimax(state, depthLimit = 8) {
   let maximum = MINUS_INFINITY;
-  let choice = null;
+  let choice;
 
   for (let holeNumber of PLAYER2_HOLE_NUMBERS) {
     if (state[holeNumber] > 0) {
@@ -58,7 +55,7 @@ async function minimax(state, depthLimit = 8) {
         2,
         holeNumber
       );
-      let currentValue = null;
+      let currentValue;
       if (nextTurn === 1) {
         currentValue = await getMin(nextState, depthLimit - 1);
       } else {
