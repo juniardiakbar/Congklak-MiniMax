@@ -30,7 +30,7 @@ export const getPlayer2PlayableHoles = congklakState =>
   congklakState.filter((_, i) => i >= 8 && i < 15);
 
 
-export const generateCongklakInitialState = () => {
+export const generateInitialState = () => {
   return [7, 7, 7, 7, 7, 7, 7, 0, 7, 7, 7, 7, 7, 7, 7, 0];
 };
 
