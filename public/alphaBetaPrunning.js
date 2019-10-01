@@ -9,11 +9,12 @@ import {
 
 const MINUS_INFINITY = -1E8;
 const PLUS_INFINITY = 1E8;
-
+// memanggil alfa-beta pruninng, i.s. kedalaman terdefinisi
 export async function getChoice(congklakState, difficulty, turn=2) {
   if (difficulty === 1) {
     return getRandomChoice(congklakState, turn);
   } else {
+    // return nilai score pada hole_home
     return await minimax(congklakState, Number.parseInt(difficulty));
   }
 }
