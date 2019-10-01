@@ -8,32 +8,55 @@ head
 
 body
   .main-container
-    .text-center
-      h1 DHA.KON
-    .content
-      .ai-home-wrapper
-        .ai-home-hole.hole.score-hole.play
-      .player-hole-wrapper
-        .ai-hole-wrapper
-          .ai-hole.hole.play
-          .ai-hole.hole.play
-          .ai-hole.hole.play
-          .ai-hole.hole.play
-          .ai-hole.hole.play
-          .ai-hole.hole.play
-          .ai-hole.hole.play
-        .user-hole-wrapper
-          .user-hole.hole.play
-          .user-hole.hole.play
-          .user-hole.hole.play
-          .user-hole.hole.play
-          .user-hole.hole.play
-          .user-hole.hole.play
-          .user-hole.hole.play
-      .user-home-wrapper
-        .user-home-hole.hole.score-hole.play
-    #seeds-left
-    button#play Play
+    .beginning-page
+      .form-group
+        label(for='type1') AI vs Player
+          input#type1.form-type(type="radio", name="type", value="1" checked)
+        label(for='type2') Player vs Bot
+          input#type2.form-type(type="radio", name="type", value="2")
+        label(for='type3') Bot vs AI
+          input#type3.form-type(type="radio", name="type", value="3")
+      
+      .form-group  
+        label(for='difficulty1') Easy
+          input#difficulty1.form-difficulty(type="radio", name="difficulty", value="1" checked)
+        label(for='difficulty2') Medium
+          input#difficulty2.form-difficulty(type="radio", name="difficulty", value="2")
+        label(for='difficulty3') Hard
+          input#difficulty3.form-difficulty(type="radio", name="difficulty", value="3")
+
+      .button
+        button#play Play
+
+    .main-page.hidden
+      .text-center
+        h1 DHA.KON
+      .content
+        .ai-home-wrapper
+          .ai-home-hole.hole.score-hole.play
+        .player-hole-wrapper
+          .ai-hole-wrapper
+            .ai-hole.hole.play
+            .ai-hole.hole.play
+            .ai-hole.hole.play
+            .ai-hole.hole.play
+            .ai-hole.hole.play
+            .ai-hole.hole.play
+            .ai-hole.hole.play
+          .user-hole-wrapper
+            .user-hole.hole.play
+            .user-hole.hole.play
+            .user-hole.hole.play
+            .user-hole.hole.play
+            .user-hole.hole.play
+            .user-hole.hole.play
+            .user-hole.hole.play
+        .user-home-wrapper
+          .user-home-hole.hole.score-hole.play
+      div
+        #playing-status
+        #seeds-left
+        button#play-game Play
 
   script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js')
   script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
