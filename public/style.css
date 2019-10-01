@@ -25,6 +25,7 @@ h1 {
 }
 
 .content {
+  /* background-color: #776e65; */
   border: .5em solid #776e65;
   padding: 2em 2.5em;
   border-radius: 45%;
@@ -98,7 +99,8 @@ h1 {
   margin: 12px;
   text-align: center;
   vertical-align: middle;
-  line-height: 30px; 
+  line-height: 30px;
+  background-color: #faf8ef;
 }
 
 .score-hole {
@@ -113,6 +115,7 @@ h1 {
   vertical-align: middle;
   line-height: 50px; 
   cursor: not-allowed;  
+  background-color: #faf8ef;
 }
 .main-hole {
   font-size: 1.6em;
