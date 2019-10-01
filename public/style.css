@@ -3,14 +3,19 @@ body {
   padding: 0;  
   font-family: 'Montserrat', sans-serif;
   color: #776e65 ;
+  background-color: #faf8ef; 
+}
 
+.beginning-page {
+  position: relative;
+  top: 5%;
 }
 
 h1 {
   font-weight: 900;
   font-size: 2.5em;
   letter-spacing: 2px;
-  margin-bottom: 1.5em;
+  margin-bottom: 1em;
   padding: .5em;
   border-bottom: .3em solid #776e65;
 }
@@ -47,10 +52,6 @@ h1 {
 }
 
 .user-hole, .ai-hole, .user-home-hole, .ai-home-hole {
-  /* height: 40px;
-  width: 40px;
-  font-size: 14px;
-  padding: 6px; */
   display: inline-block;
 }
 
@@ -124,3 +125,58 @@ h1 {
   opacity: 1;
 }
 
+.menu {
+  font-size: 1rem;
+  /* margin-top: -.75rem; */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.beginning-page {
+  border: 1em solid #776e65;
+  padding: 1.5em 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+button#play, button#play-game{
+  cursor: pointer;
+  padding: 6px 12px;
+  margin-top: 10px;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #faf8ef;
+  border: 6px solid #776e65;
+  color: #776e65;
+}
+
+button#play:hover, button#play-game:hover {
+  opacity: 0.75;
+}
+
+.hidden {
+  display: none;
+  /* visibility: hidden; */
+}
+
+.main-page {
+  /* display:flex; */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.status-wrapper {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

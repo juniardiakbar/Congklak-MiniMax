@@ -53,8 +53,10 @@ buttonPlay.addEventListener('click', function() {
   congklakState.forEach((state, i) => {
     holes[i].innerHTML = state;
   });
+  document.querySelector('.beginning-page').classList.add('hidden');
   mainPage[0].classList.remove('hidden');
-  beginningPage[0].classList.add('hidden');
+  mainPage[0].style.display = 'flex';
+  // beginningPage[0].classList.add('hidden');
 });
 
 buttonPlayGame.addEventListener('click', async function() {
