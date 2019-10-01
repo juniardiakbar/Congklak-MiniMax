@@ -1,9 +1,9 @@
 import {
-  PLAYER2_HOLE_NUMBERS,
   getOwnScoreHoleNumber,
-  isPlayer2OutOfMove,
   isPlayer1OutOfMove,
+  isPlayer2OutOfMove,
   PLAYER1_HOLE_NUMBERS,
+  PLAYER2_HOLE_NUMBERS,
 } from "./congklakUtils.js";
 
 import { 

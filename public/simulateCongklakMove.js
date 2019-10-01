@@ -65,11 +65,13 @@ async function simulatePlaying(
 
       nextState.forEach((state, i) => {
         holes[i].innerHTML = state;
+        holes[i].classList.add('simulate');
       });
 
       seedsLeft.innerHTML = seeds;
 
-      simulatePlaying(seeds,selectedHoleNumber, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles, hasVisited)
+      simulatePlaying(seeds,selectedHoleNumber, currentHoleNumber, nextState, turn, 
+        holes, seedsLeft, playingStatus, botHoles, hasVisited)
     }, 50);
   } else {
     holes.forEach(hole => {
@@ -84,9 +86,14 @@ async function simulatePlaying(
           seeds = nextState[selectedHoleNumber];
           currentHoleNumber = getNextHoleNumber(selectedHoleNumber);
           nextState[selectedHoleNumber] = 0;
-          simulatePlaying(seeds, selectedHoleNumber, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles, hasVisited);
+          simulatePlaying(seeds, selectedHoleNumber, currentHoleNumber, nextState, 
+            turn, holes, seedsLeft, playingStatus, botHoles, hasVisited);
         } else {
           playingStatus.innerHTML = "Player is playing";
+          nextState.forEach((state, i) => {
+            holes[i].innerHTML = state;
+            holes[i].classList.remove('simulate');
+          });
           return;
         }
       } else {
@@ -95,9 +102,14 @@ async function simulatePlaying(
           seeds = nextState[selectedHoleNumber];
           currentHoleNumber = getNextHoleNumber(selectedHoleNumber);
           nextState[selectedHoleNumber] = 0;
-          simulatePlaying(seeds,selectedHoleNumber, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles, hasVisited);
+          simulatePlaying(seeds,selectedHoleNumber, currentHoleNumber, nextState, 
+            turn, holes, seedsLeft, playingStatus, botHoles, hasVisited);
         } else {
           playingStatus.innerHTML = "Player is playing";
+          nextState.forEach((state, i) => {
+            holes[i].innerHTML = state;
+            holes[i].classList.remove('simulate');
+          });
           return;
         }
       }
@@ -127,5 +139,6 @@ export async function simulateCongklakMove(
     });
   }, 250);
 
-  simulatePlaying(seeds, selectedHoleNumber, currentHoleNumber, nextState, turn, holes, seedsLeft, playingStatus, botHoles, false);
+  simulatePlaying(seeds, selectedHoleNumber, currentHoleNumber, nextState, turn, 
+    holes, seedsLeft, playingStatus, botHoles, false);
 }

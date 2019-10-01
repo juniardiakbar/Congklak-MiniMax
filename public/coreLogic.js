@@ -1,12 +1,12 @@
 import {
-  getNextHoleNumber,
   getEnemyScoreHoleNumber,
-  isInOwnArea,
+  getNextHoleNumber,
   getNextTurn,
+  getOppositeHoleNumber,
   getOwnScoreHoleNumber,
+  isInOwnArea,
   PLAYER1_HOME_HOLE_NUMBER,
-  PLAYER2_HOME_HOLE_NUMBER,
-  getOppositeHoleNumber
+  PLAYER2_HOME_HOLE_NUMBER
 } from "./congklakUtils.js";
   
 export async function getCongklakNextState(

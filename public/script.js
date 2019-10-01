@@ -57,6 +57,12 @@ buttonPlay.addEventListener('click', function() {
   mainPage[0].style.display = 'flex';
 });
 
+/**
+ * Pada kasus Bot vs AI.
+ * Akan menghandle saat user mengklik button Player
+ * Button akan berguna sebagai triger untuk memilih hole secara acak
+ */
+
 buttonPlayGame.addEventListener('click', async function() {
   if (type == 3) {
     var tempState = [...congklakState];
@@ -84,40 +90,52 @@ buttonPlayGame.addEventListener('click', async function() {
       }
     }
     console.log(botHoles);
-    await simulateCongklakMove(tempState, 1, randomHole, holes, seedsLeft, playingStatus, botHoles);
+    await simulateCongklakMove(tempState, 1, randomHole, holes, seedsLeft, 
+      playingStatus, botHoles);
   }
 })
 
+/**
+ * Pada kasus player vs AI atau player vs Bot.
+ * Akan menghandle saat user mengklik holes
+ * Kumpulan hols yang dipilih AI ditampung dalam botHoles
+ * 
+ * Permainan Player dan AI akan disimulasikan oleh simulateCongklakMove
+ */
+
 for (let i=0; i<7; i++) {
   userHole[i].addEventListener('click', async function() {
-    if (type == 1 || type == 2) {
-      var tempState = [...congklakState];
-      var result = await getCongklakNextState(congklakState, 1, i);
-      var nextState = result.nextState;
-      playing = result.nextTurn;
-      
-      for (let j=0; j<16; j++) {
-        congklakState[j] = nextState[j];
-      }
-      
-      var botHoles = [];
-
-      while (playing == 2) {
-        if (type == 2) {
-          difficulty = 1;
-        }
-        const selectedHole = await getChoice(congklakState, difficulty);
-        botHoles.push(selectedHole);
-        var result = await getCongklakNextState(congklakState, 2, selectedHole);
+    if ((type == 1 || type == 2) && (congklakState[i] != 0)) {
+      if (!holes[i].classList.contains('simulate')) {
+        var tempState = [...congklakState];
+        var result = await getCongklakNextState(congklakState, 1, i);
         var nextState = result.nextState;
         playing = result.nextTurn;
         
-        for (let i=0; i<16; i++) {
-          congklakState[i] = nextState[i];
+        for (let j=0; j<16; j++) {
+          congklakState[j] = nextState[j];
         }
+        
+        var botHoles = [];
+  
+        while (playing == 2) {
+          if (type == 2) {
+            difficulty = 1;
+          }
+          const selectedHole = await getChoice(congklakState, difficulty);
+          botHoles.push(selectedHole);
+          var result = await getCongklakNextState(congklakState, 2, selectedHole);
+          var nextState = result.nextState;
+          playing = result.nextTurn;
+          
+          for (let i=0; i<16; i++) {
+            congklakState[i] = nextState[i];
+          }
+        }
+        console.log(botHoles);
+        await simulateCongklakMove(tempState, 1, i, holes, seedsLeft, 
+          playingStatus, botHoles);
       }
-      console.log(botHoles);
-      await simulateCongklakMove(tempState, 1, i, holes, seedsLeft, playingStatus, botHoles);
     }
   });
 }
