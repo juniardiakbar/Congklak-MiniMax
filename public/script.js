@@ -1,5 +1,8 @@
-import { generateCongklakInitialState } from './congklakUtils.js';
-import { getCongklakNextState } from './coreLogic.js';
+import { 
+  generateCongklakInitialState,
+  getCongklakNextState
+} from './congklakUtils.js';
+
 import { getChoice } from './alphaBetaPrunning.js';
 import { simulateCongklakMove } from './simulateCongklakMove.js';
 
