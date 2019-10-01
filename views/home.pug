@@ -9,7 +9,9 @@ head
 body
   .main-container
     .beginning-page
+      h1 DHA.KON
       .form-group
+        h1.menu Select gameplay:
         label(for='type1') AI vs Player
           input#type1.form-type(type="radio", name="type", value="1" checked)
         label(for='type2') Player vs Bot
@@ -17,7 +19,8 @@ body
         label(for='type3') Bot vs AI
           input#type3.form-type(type="radio", name="type", value="3")
       
-      .form-group  
+      .form-group
+        h1.menu Select difficulty:
         label(for='difficulty1') Easy
           input#difficulty1.form-difficulty(type="radio", name="difficulty", value="1" checked)
         label(for='difficulty2') Medium
@@ -29,8 +32,7 @@ body
         button#play Play
 
     .main-page.hidden
-      .text-center
-        h1 DHA.KON
+      h1 DHA.KON
       .content
         .ai-home-wrapper
           .ai-home-hole.hole.score-hole.play
@@ -53,7 +55,7 @@ body
             .user-hole.hole.play
         .user-home-wrapper
           .user-home-hole.hole.score-hole.play
-      div
+      div.status-wrapper
         #playing-status
         #seeds-left
         button#play-game Play
