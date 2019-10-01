@@ -18,7 +18,6 @@ var playingStatus = document.getElementById('playing-status');
 var buttonPlayGame = document.getElementById('play-game');
 var playing = 1;
 
-var beginningPage = document.getElementsByClassName('beginning-page');
 var mainPage = document.getElementsByClassName('main-page');
 
 var holes = [];

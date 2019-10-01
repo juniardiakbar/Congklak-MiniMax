@@ -4,8 +4,8 @@ import {
   isInOwnArea,
   getNextTurn,
   getOwnScoreHoleNumber,
-  PLAYER1_SCORE_HOLE_NUMBER,
-  PLAYER2_SCORE_HOLE_NUMBER,
+  PLAYER1_HOME_HOLE_NUMBER,
+  PLAYER2_HOME_HOLE_NUMBER,
   getOppositeHoleNumber
 } from "./congklakUtils.js";
   
@@ -20,7 +20,6 @@ export async function getCongklakNextState(
   let currentHoleNumber = getNextHoleNumber(selectedHoleNumber);
   let hasVisited = false;
   
-
   nextState[selectedHoleNumber] = 0;
 
   while (seeds > 0) {
@@ -38,8 +37,8 @@ export async function getCongklakNextState(
 
     if (
       seeds === 0 &&
-      currentHoleNumber !== PLAYER1_SCORE_HOLE_NUMBER &&
-      currentHoleNumber !== PLAYER2_SCORE_HOLE_NUMBER
+      currentHoleNumber !== PLAYER1_HOME_HOLE_NUMBER &&
+      currentHoleNumber !== PLAYER2_HOME_HOLE_NUMBER
     ) {
       if (nextState[currentHoleNumber] > 1) {
         seeds += nextState[currentHoleNumber];
@@ -52,7 +51,6 @@ export async function getCongklakNextState(
         nextState[getOwnScoreHoleNumber(turn)] += take;
       }
     }
-
     currentHoleNumber = getNextHoleNumber(currentHoleNumber);
   }
 

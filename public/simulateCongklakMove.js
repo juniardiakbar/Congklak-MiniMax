@@ -4,8 +4,8 @@ import {
   isInOwnArea,
   getNextTurn,
   getOwnScoreHoleNumber,
-  PLAYER1_SCORE_HOLE_NUMBER,
-  PLAYER2_SCORE_HOLE_NUMBER,
+  PLAYER1_HOME_HOLE_NUMBER,
+  PLAYER2_HOME_HOLE_NUMBER,
   getOppositeHoleNumber
 } from "./congklakUtils.js";
 
@@ -19,13 +19,15 @@ async function simulatePlaying(
   seedsLeft, 
   playingStatus, 
   botHoles,
-  hasVisited) {
+  hasVisited
+) {
   if (seeds > 0) {
     if (turn == 1) {
       playingStatus.innerHTML = "Player is playing";
     } else {
       playingStatus.innerHTML = "AI is playing";
     }
+
     setTimeout(function() {
       if (currentHoleNumber === getEnemyScoreHoleNumber(turn)) {
         currentHoleNumber = getNextHoleNumber(currentHoleNumber);
@@ -40,8 +42,8 @@ async function simulatePlaying(
   
       if (
         seeds === 0 &&
-        currentHoleNumber !== PLAYER1_SCORE_HOLE_NUMBER &&
-        currentHoleNumber !== PLAYER2_SCORE_HOLE_NUMBER
+        currentHoleNumber !== PLAYER1_HOME_HOLE_NUMBER &&
+        currentHoleNumber !== PLAYER2_HOME_HOLE_NUMBER
       ) {
         if (nextState[currentHoleNumber] > 1) {
           seeds += nextState[currentHoleNumber];
@@ -118,6 +120,7 @@ export async function simulateCongklakMove(
   const seeds = nextState[selectedHoleNumber];
   const currentHoleNumber = getNextHoleNumber(selectedHoleNumber);
   nextState[selectedHoleNumber] = 0;
+  
   await setTimeout(function(){ 
     nextState.forEach((state, i) => {
       holes[i].innerHTML = state;
