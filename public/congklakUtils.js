@@ -2,12 +2,17 @@ export const PLAYER1_HOME_HOLE_NUMBER = 7;
 export const PLAYER2_HOME_HOLE_NUMBER = 15;
 export const PLAYER1_HOLE_NUMBERS = [0, 1, 2, 3, 4, 5, 6];
 export const PLAYER2_HOLE_NUMBERS = [8, 9, 10, 11, 12, 13, 14];
-export const OPPOSITE_HOLE_NUMBER = function(holeNumber) {
+
+export const getOpositeHoleNumber = function(holeNumber) {
   return 14-holeNumber;
 };
 
 export const isInOwnArea = function(holeNumber, turn) {
-  return holeNumber >= (turn - 1) * 8 && holeNumber < turn * 8 - 1;
+  if (turn == 1) {
+    return PLAYER1_HOLE_NUMBERS.includes(holeNumber);
+  } else {
+    return PLAYER2_HOLE_NUMBERS.includes(holeNumber);
+  }
 }
 
 export const getNextHoleNumber = function(holeNumber) {
@@ -29,6 +34,7 @@ export const getPlayer2PlayableHoles = function(congklakState) {
 export const getNextTurn = function(currentTurn) {
   return (currentTurn % 2) + 1;
 }
+
 export const getOwnScoreHoleNumber = function(currentTurn) {
   return currentTurn * 8 - 1;
 }
@@ -46,7 +52,7 @@ export const getOppositeHoleNumber = function(holeNumber) {
   holeNumber === PLAYER1_HOME_HOLE_NUMBER ||
   holeNumber === PLAYER2_HOME_HOLE_NUMBER
     ? -1
-    : OPPOSITE_HOLE_NUMBER(holeNumber);
+    : getOpositeHoleNumber(holeNumber);
 }
 
 export const isPlayer1OutOfMove = function(congklakState) {
