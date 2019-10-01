@@ -60,7 +60,7 @@ buttonPlay.addEventListener('click', function() {
 buttonPlayGame.addEventListener('click', async function() {
   if (type == 3) {
     var tempState = [...congklakState];
-    const randomHole = await getChoice(congklakState, 1);
+    const randomHole = await getChoice(congklakState, 1, playing);
   
     var result = await getCongklakNextState(congklakState, 1, randomHole);
     var nextState = result.nextState;
@@ -84,7 +84,7 @@ buttonPlayGame.addEventListener('click', async function() {
       }
     }
     console.log(botHoles);
-    await simulateCongklakMove(tempState, 1, i, holes, seedsLeft, playingStatus, botHoles);
+    await simulateCongklakMove(tempState, 1, randomHole, holes, seedsLeft, playingStatus, botHoles);
   }
 })
 
