@@ -18,6 +18,8 @@ export async function getCongklakNextState(
 
   let seeds = nextState[selectedHoleNumber];
   let currentHoleNumber = getNextHoleNumber(selectedHoleNumber);
+  let hasVisited = false;
+  
 
   nextState[selectedHoleNumber] = 0;
 
@@ -30,6 +32,10 @@ export async function getCongklakNextState(
     seeds -= 1;
     nextState[currentHoleNumber] += 1;
 
+    if (currentHoleNumber == selectedHoleNumber) {
+      hasVisited = true;
+    }
+
     if (
       seeds === 0 &&
       currentHoleNumber !== PLAYER1_SCORE_HOLE_NUMBER &&
@@ -38,7 +44,7 @@ export async function getCongklakNextState(
       if (nextState[currentHoleNumber] > 1) {
         seeds += nextState[currentHoleNumber];
         nextState[currentHoleNumber] = 0;
-      } else if (isInOwnArea(currentHoleNumber, turn)) {
+      } else if (isInOwnArea(currentHoleNumber, turn) && hasVisited) {
         const opposite = getOppositeHoleNumber(currentHoleNumber);
         const take = nextState[opposite] + nextState[currentHoleNumber];
         nextState[opposite] = 0;
