@@ -9,7 +9,13 @@ import {
 
 const MINUS_INFINITY = -1E8;
 const PLUS_INFINITY = 1E8;
-// memanggil alfa-beta pruninng, i.s. kedalaman terdefinisi
+
+/**
+ * 
+ * Fungsi getChoice adalah fungsi untuk memanggil fungi minimax 
+ * Menghasilkan gerakan random apabila difficulty = 1
+ * 
+ */
 export async function getChoice(congklakState, difficulty, turn=2) {
   if (difficulty === 1) {
     return getRandomChoice(congklakState, turn);
@@ -18,6 +24,13 @@ export async function getChoice(congklakState, difficulty, turn=2) {
     return await minimax(congklakState, Number.parseInt(difficulty));
   }
 }
+
+/**
+ * 
+ * Fungsi getRandomChoice adalah fungsi yang 
+ * mengembalikan gerakan random saat bermain
+ * 
+ */
 
 function getRandomChoice(congklakState, turn) {
   var playableHoles;
@@ -33,6 +46,13 @@ function getRandomChoice(congklakState, turn) {
   return playableHoles[Math.floor(Math.random() * playableHoles.length)];
 }
 
+/**
+ * 
+ * Fungsi isGameOver adalah fungsi untuk mengecek apakah
+ * seorang pemain sudah kehabisan giliran bermain atau tidak
+ * 
+ */
+
 function isGameOver(congklakState, turn) {
   if (turn === 1) {
     return isPlayer1OutOfMove(congklakState);
@@ -41,9 +61,24 @@ function isGameOver(congklakState, turn) {
   }
 }
 
+/**
+ * 
+ * Fungsi utility adalah fungsi yang mengembalikan
+ * nilai basis, yaitu banyaknya batu pada suatu lubang
+ * pemain yang sedang mendapat giliran
+ * 
+ */
+
 function utility(congklakState, turn) {
   return congklakState[getOwnScoreHoleNumber(turn)];
 }
+
+/**
+ * 
+ *  Fungsi minimax adalah fungsi untuk menghasilkan gerakan optimum
+ *  untuk bot AI yang menggunakan algoritma minimax
+ *  
+ */
 
 async function minimax(state, depthLimit = 8) {
   let maximum = MINUS_INFINITY;
@@ -71,6 +106,14 @@ async function minimax(state, depthLimit = 8) {
   }
   return choice;
 }
+
+/**
+ * 
+ * Fungsi getMin adalah fungsi yang menghasilkan nilai 
+ * optimum yang dapat dihasilkan oleh minimizer (pemain non-AI).
+ * Fungsi ini menggunakan alpha-beta prunning
+ *  
+ */
 
 async function getMin(
   state,
@@ -106,6 +149,14 @@ async function getMin(
 
   return minValue;
 }
+
+/**
+ * 
+ * Fungsi getMax adalah fungsi yang menghasilkan nilai 
+ * optimum yang dapat dihasilkan oleh maximizer (pemain AI).
+ * Fungsi ini menggunakan alpha-beta prunning
+ *  
+ */
 
 async function getMax(
   state,
