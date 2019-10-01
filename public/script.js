@@ -1,5 +1,5 @@
 import { 
-  generateCongklakInitialState,
+  generateInitialState,
   getCongklakNextState
 } from './congklakUtils.js';
 
@@ -51,7 +51,7 @@ for (let i=0; i<3; i++) {
 }
 
 buttonPlay.addEventListener('click', function() {  
-  congklakState = generateCongklakInitialState();
+  congklakState = generateInitialState();
   congklakState.forEach((state, i) => {
     holes[i].innerHTML = state;
   });
